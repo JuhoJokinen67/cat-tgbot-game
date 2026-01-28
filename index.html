@@ -195,8 +195,8 @@
 
         function submitScore() {
             if (totalScore > 0) {
-                const data = JSON.stringify({score: totalScore, rolls: history.length});
-                tg.sendData(data);
+                const message = `/score ${totalScore} ${history.length}`;
+                window.open(`https://t.me/cat_finder_bot?text=${encodeURIComponent(message)}`, '_blank');
                 tg.close();
             }
         }
