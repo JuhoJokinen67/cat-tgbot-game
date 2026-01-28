@@ -195,9 +195,8 @@
 
         function submitScore() {
             if (totalScore > 0) {
-                const encodedScore = btoa(`${totalScore}:${history.length}`);
-                window.open(`https://t.me/cat_finder_bot?start=score_${encodedScore}`, '_blank');
-                tg.close();
+                const data = JSON.stringify({score: totalScore, rolls: history.length});
+                tg.sendData(data);
             }
         }
 
