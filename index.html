@@ -134,12 +134,7 @@
         </div>
     </div>
 
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script>
-        const tg = window.Telegram.WebApp;
-        tg.ready();
-        tg.expand();
-
         const dieEl = document.getElementById('die');
         const resultEl = document.getElementById('result');
         const historyEl = document.getElementById('history');
@@ -175,8 +170,6 @@
                     if (history.length > maxHistory) history.pop();
                     updateHistory();
 
-                    tg.HapticFeedback?.impactOccurred('medium');
-
                     rollBtn.disabled = false;
                 }
             }, 100);
@@ -187,14 +180,6 @@
                 `<div class="roll-item">${diceEmojis[roll - 1]}</div>`
             ).join('');
         }
-
-        tg.MainButton.text = 'Submit Score';
-        tg.MainButton.color = '#667eea';
-        tg.MainButton.onClick(() => {
-            tg.sendData(JSON.stringify({score: totalScore, rolls: history.length}));
-            tg.close();
-        });
-        tg.MainButton.show();
     </script>
 </body>
 </html>
