@@ -125,6 +125,7 @@
         <div class="die" id="die">🎲</div>
 
         <button id="rollBtn" onclick="rollDie()">Roll!</button>
+        <button id="submitBtn" onclick="submitScore()" style="margin-top: 10px; display: none;">Submit Score</button>
 
         <div class="result" id="result"></div>
 
@@ -144,6 +145,7 @@
         const resultEl = document.getElementById('result');
         const historyEl = document.getElementById('history');
         const rollBtn = document.getElementById('rollBtn');
+        const submitBtn = document.getElementById('submitBtn');
 
         let history = [];
         let totalScore = 0;
@@ -179,6 +181,7 @@
                         tg.HapticFeedback.impactOccurred('medium');
                     }
 
+                    submitBtn.style.display = 'block';
                     rollBtn.disabled = false;
                 }
             }, 100);
@@ -190,12 +193,18 @@
             ).join('');
         }
 
-        tg.MainButton.text = 'Submit Score';
-        tg.MainButton.color = '#667eea';
-        tg.MainButton.onClick(() => {
-            tg.sendData(JSON.stringify({score: totalScore, rolls: history.length}));
-        });
-        tg.MainButton.show();
+        function submitScore() {
+            if (totalScore > 0) {
+                tg.sendData(JSON.stringify({score: totalScore, rolls: history.length}));
+            }
+        }
+
+        if (tg.MainButton) {
+            tg.MainButton.text = 'Submit Score';
+            tg.MainButton.color = '#667eea';
+            tg.MainButton.onClick(submitScore);
+            tg.MainButton.show();
+        }
     </script>
 </body>
 </html>
