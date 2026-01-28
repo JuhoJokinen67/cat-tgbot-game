@@ -195,7 +195,9 @@
 
         function submitScore() {
             if (totalScore > 0) {
-                tg.sendData(JSON.stringify({score: totalScore, rolls: history.length}));
+                const data = JSON.stringify({score: totalScore, rolls: history.length});
+                tg.sendData(data);
+                tg.close();
             }
         }
 
